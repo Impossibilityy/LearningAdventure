@@ -3,13 +3,12 @@ workflows:
     name: iOS Build
     environment:
       xcode: latest
-      cocoapods: default
     scripts:
       - name: Install dependencies
         script: |
-          pod install
-      - name: Build project
+          xcodebuild -resolvePackageDependencies
+      - name: Build the app
         script: |
-          xcodebuild -workspace LearningAdventure.xcworkspace -scheme LearningAdventure -sdk iphoneos -configuration Release build
+          xcodebuild build -scheme LearningAdventure -destination 'generic/platform=iOS'
     artifacts:
-      - build/ios/ipa/*.ipa
+      - build/ios/Debug-iphoneos/*.app
